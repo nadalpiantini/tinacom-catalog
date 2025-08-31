@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useCallback, useEffect, useState } from 'react';
-import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeResult } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeResult, Html5Qrcode } from 'html5-qrcode';
 
 interface QRScannerConfig {
   fps?: number;
@@ -15,7 +15,7 @@ interface QRScannerState {
   isScanning: boolean;
   error: string | null;
   hasPermission: boolean | null;
-  cameraDevices: MediaDeviceInfo[];
+  cameraDevices: any[];
   selectedCamera: string | null;
   isInitializing: boolean;
 }
@@ -68,19 +68,19 @@ export const useQRScanner = (
   const getCameraDevices = useCallback(async () => {
     try {
       setState(prev => ({ ...prev, isInitializing: true }));
-      const devices = await (Html5QrcodeScanner as any).getCameras();
+      const devices = await Html5Qrcode.getCameras();
       
       // Priorizar cámara trasera para escaneo QR
-      const backCamera = devices.find((d: MediaDeviceInfo) => 
-        d.label.toLowerCase().includes('back') || 
-        d.label.toLowerCase().includes('rear') ||
-        d.label.toLowerCase().includes('environment')
+      const backCamera = devices.find((d: any) => 
+        d.label?.toLowerCase().includes('back') || 
+        d.label?.toLowerCase().includes('rear') ||
+        d.label?.toLowerCase().includes('environment')
       );
       
       setState(prev => ({ 
         ...prev, 
         cameraDevices: devices,
-        selectedCamera: backCamera?.deviceId || devices[0]?.deviceId,
+        selectedCamera: backCamera?.id || devices[0]?.id,
         isInitializing: false
       }));
       
