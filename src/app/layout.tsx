@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: 'Tinacom - Soluciones de Almacenamiento de Agua',
   description: 'Catálogo interactivo de tinacos Tinacom. Encuentra el tinaco perfecto para tu hogar o negocio.',
   keywords: 'tinacos, agua, almacenamiento, residencial, comercial, industrial',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://tinacom.sujeto10.com'),
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
