@@ -1,9 +1,21 @@
 import type { Metadata } from 'next'
 
+// Multi-domain configuration
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return process.env.NEXT_PUBLIC_SITE_URL || 'https://tinacom.sujeto10.com';
+};
+
 export const siteConfig = {
   name: 'Tinacom',
   description: 'Catálogo interactivo de tinacos Tinacom. Encuentra el tinaco perfecto para tu hogar o negocio.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://tinacom.sujeto10.com',
+  url: getBaseUrl(),
+  domains: [
+    'https://tinacom.sujeto10.com',
+    'https://tinacom.empleaido.com'
+  ],
   ogImage: '/items/tinacom-logo.svg',
   links: {
     twitter: 'https://twitter.com/tinacom',
